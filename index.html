@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuickShop</title>
+  <link rel="stylesheet" href="styles/style.min.css" />
+</head>
+<body>
+  <header>
+    <h1>QuickShop</h1>
+    <input type="text" id="search" placeholder="Search products..." />
+  </header>
+
+  <main id="product-list"></main>
+
+  <script src="scripts/main.min.js" defer></script>
+</body>
+</html>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const products = [
+      {
+        name: "Wireless Headphones",
+        price: "1299",
+        image: "boatrockerz400.jpg"
+      },
+      {
+        name: "Smartwatch",
+        price: "2999",
+        image: "smartwatch.jpeg"
+      },
+      {
+        name: "Fitness Band",
+        price: "999",
+        image: "fitnessband.jpg"
+      },
+      {
+        name: "Bluetooth Speaker",
+        price: "1599",
+        image: "bluetoothspeaker.jpg"
+      }
+    ];
+
+    const container = document.getElementById("product-list");
+    container.innerHTML = products.map(p => `
+      <div class="product">
+        <img loading="lazy" src="${p.image}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <p>₹${p.price}</p>
+      </div>
+    `).join("");
+
+    // Add search functionality
+    document.getElementById("search").addEventListener("input", (e) => {
+      const q = e.target.value.toLowerCase();
+      document.querySelectorAll(".product").forEach(card => {
+        card.style.display = card.textContent.toLowerCase().includes(q) ? "block" : "none";
+      });
+    });
+  });
+</script>
